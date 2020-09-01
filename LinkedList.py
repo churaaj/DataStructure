@@ -31,21 +31,57 @@ class LinkedList:
             tptr = tptr.next
 
         if flag == 1:
-            node.next = tptr
+            node.next = tptr.next
             tptr.next = node
+        else:
+            print("No element found")
+    
+    def append(self, data):
+        node = Node(data)
+        tptr = self.head
+        while tptr.next != None:
+            tptr = tptr.next
+
+        tptr.next = node
 
 
     def display(self):
         tptr = self.head
         while tptr != None:
-            print(tptr.data)
+            print(tptr.data,end=" ")
             tptr = tptr.next
+        print()
+        
+        
+    def getcount(self, node):
+        if node == None:
+            return 0
+        else:
+            return 1 + self.getcount(node.next)
+
+    def length(self):
+        return self.getcount(self.head)
+
+    def reverse(self):
+        current = self.head
+        prev = None
+        after = self.head
+
+        while current:
+            after = after.next
+            current.next = prev
+            prev = current
+            current = after
+
+        self.head = prev
 
 link = LinkedList()
 link.push(3)
 link.push(5)
 link.insert(4,5)
+link.append(2)
 link.display()
-
-
-    
+l = link.length()
+print("The length of list is",l)
+link.reverse()
+link.display()
